@@ -4,8 +4,9 @@ import navState from '../../redux/reducers/navReducer';
 import {nav_click} from '../../redux/actions/navActions';
 
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 
-function Botonera({title, nav_click}) {
+function Navbar({title, nav_click}) {
   const buttonClick = (title) => {
     nav_click({
       title: title,
@@ -18,11 +19,9 @@ function Botonera({title, nav_click}) {
             <div>
                 <h1>{title}</h1>
             </div>
-            <ul>
-                <li onClick={() => buttonClick('Home')}>Home</li>
-                <li onClick={() => buttonClick('List')}>List</li>
-                <li onClick={() => buttonClick('New')}>New</li>
-            </ul>
+            <Link to='/home' onClick={() => buttonClick('Home')}>Home</Link>
+            <Link to='/list' onClick={() => buttonClick('List')}>List</Link>
+            <Link to='/new' onClick={() => buttonClick('New')}>New</Link>
         </header>
     </div> 
   );
@@ -36,4 +35,4 @@ const mapStateToProps = (state) => {
 export default connect(
   mapStateToProps,
   { nav_click }
-)(Botonera);
+)(Navbar);
