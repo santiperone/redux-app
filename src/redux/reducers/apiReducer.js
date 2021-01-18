@@ -3,6 +3,7 @@ import * as types from '../actions/actionTypes';
 const initialState = {
     list: [],
     loading: false,
+    error: null,
 }
 
 const apiState = (state = initialState, action) => {

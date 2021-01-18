@@ -46,6 +46,7 @@ export const fetch_data = () => dispatch => {
             dispatch(request_data(data));
         })
         .catch(err => {
+            console.log(err);
             dispatch(request_error(err));
         })
 }
