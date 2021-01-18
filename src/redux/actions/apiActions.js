@@ -50,3 +50,30 @@ export const fetch_data = () => dispatch => {
             dispatch(request_error(err));
         })
 }
+
+export const request_post_data = data => ({
+    type: types.REQUEST_POST_DATA,
+    payload: {
+        ok: data.data[0].ok,
+        loading: false,
+    },
+})
+
+const post_data = (data) => {
+    return axios
+      .post('http://dev.contanimacion.com/api_tablon/api/mensajes/add', data)
+      .then(res => res)
+      .catch(err => err)
+}
+
+export const send_new = (data) => dispatch => {
+    dispatch(sending_request());
+    return post_data(data)
+        .then(data => {
+            dispatch(request_post_data(data));
+        })
+        .catch(err => {
+            console.log(err);
+            dispatch(request_error(err));
+        })
+}

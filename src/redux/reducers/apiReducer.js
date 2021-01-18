@@ -35,6 +35,13 @@ const apiState = (state = initialState, action) => {
                 loading: action.payload.loading,
             }
         }
+        case types.REQUEST_POST_DATA: {
+            return {
+                ...state,
+                ok: action.payload.ok,
+                loading: action.payload.loading,
+            }
+        }
         default: return state;
     }
 }

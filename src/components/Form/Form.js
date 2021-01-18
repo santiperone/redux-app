@@ -2,6 +2,7 @@ import './Form.css';
 
 import {connect} from 'react-redux';
 import {reduxForm, Field} from 'redux-form';
+import {send_new} from '../../redux/actions/apiActions';
 
 const renderField = ({label, input, type, meta: {touched, error, warning}}) => {
   return (
@@ -15,11 +16,15 @@ const renderField = ({label, input, type, meta: {touched, error, warning}}) => {
   )
 }
 
-let Form = ({}) => {
+let Form = ({responseOk, loading, send_new, handleSubmit}) => {
+  const beforeSubmit = (values) => {
+    values.user_id = 13;
+    send_new(values);
+  }
   return (
     <div className="Form">
         <h3>Añadir nuevo mensaje</h3>
-        <form>
+        <form onSubmit={handleSubmit(beforeSubmit)}>
           <div>
             <Field name="asunto" label="asunto" component={renderField}/>
           </div>
@@ -30,6 +35,8 @@ let Form = ({}) => {
           <input className="submit" type="submit" value="Enviar"/>
           </div>        
         </form>
+        {loading ? 'Enviando datos...' : ''}
+        {responseOk ? 'Enviado' : ''}
     </div> 
   );
 }
@@ -57,10 +64,11 @@ Form = reduxForm({
 
 const mapStateToProps = (state) => {
   return {
-    
+    responseOk: state.apiState.ok,
+    loading: state.apiState.loading
   }
 }
 export default connect(
   mapStateToProps,
-  { }
+  { send_new }
 )(Form);
